@@ -48,7 +48,7 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public List<Boolean> enabledStates() {
-        return this.list.stream().map(e -> e.compareTo(size)).map(e -> e <= 0).toList();
+        return this.list.stream().map(e -> e.compareTo(size)).map(e -> e < 0).toList();
     }
 
     /**
