@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * Implementation of the Logics interface.
  */
@@ -16,6 +15,7 @@ public class LogicsImpl implements Logics {
      *
      * @param size the size of the logics
      */
+
     public LogicsImpl(final int size) {
         Objects.requireNonNull(size);
         this.size = size;
@@ -24,7 +24,6 @@ public class LogicsImpl implements Logics {
         for (int i = 0; i < size; i++) {
             list.add(0);
        }
-
     }
 
     /**
@@ -40,7 +39,7 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public List<Integer> values() {
-        return list;
+        return List.copyOf(this.list);
     }
 
     /**
@@ -56,8 +55,8 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public int hit(final int elem) {
-        return this.list.set(elem, this.list.get(elem) + 1);
-        
+        this.list.set(elem, this.list.get(elem) + 1);
+        return this.list.get(elem);
     }
 
     /**
@@ -73,7 +72,7 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public boolean toQuit() {
-        for (Integer i : this.values()) {
+        for (final Integer i : this.values()) {
             if (i <= size) {
                 return false;
             }
