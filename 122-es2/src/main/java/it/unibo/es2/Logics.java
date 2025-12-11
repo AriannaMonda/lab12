@@ -13,14 +13,17 @@ public interface Logics {
 
     /**
      *  quit the programm.
-     * @param elem
-     * @return
+     * 
+     * @param elem slot 
+     * @return true if the program has to quit 
      */
     Boolean toQuit(Pair<Integer, Integer> elem);
+
     /**
      * press the button.
-     * @param elem
-     * @return
+     * 
+     * @param elem slot
+     * @return " " or * when a button is pressed 
      */
     String hit(Pair<Integer, Integer> elem);
 }

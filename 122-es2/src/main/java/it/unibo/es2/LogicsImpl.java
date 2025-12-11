@@ -3,10 +3,14 @@ package it.unibo.es2;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+/**
+ * Implementation of Logics.
+ */
 
 public class LogicsImpl implements Logics {
     private final int size;
-    private final Map<Pair<Integer, Integer>,String> map;
+    private final Map<Pair<Integer, Integer>, String> map;
+
     /**
      * Constructor.
      *
@@ -25,44 +29,52 @@ public class LogicsImpl implements Logics {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int size() {
        return this.size;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String hit(final Pair<Integer, Integer> elem) {
-        if (map.get(elem).equals(" ")) {
+        if (" ".equals(map.get(elem))) {
             map.put(elem, "*");
             return "*";
-        }
-        else {
+        } else {
             map.put(elem, " ");
             return " ";
         }
     }
 
-    private Boolean checkCol(Pair<Integer, Integer> elem) {
+    private Boolean checkCol(final Pair<Integer, Integer> elem) {
         for (int i = 0; i < this.size; i++) {
-            if (map.get(new Pair<>(elem.x(), i)).equals(" ")) {
+            if (" ".equals(map.get(new Pair<>(elem.x(), i)))) {
                 return false;
             }
         }
         return true;
     }
 
-    private Boolean checkRow(Pair<Integer, Integer> elem) {
+    private Boolean checkRow(final Pair<Integer, Integer> elem) {
         for (int i = 0; i < this.size; i++) {
-            if (map.get(new Pair<>(i, elem.y())).equals(" ")) {
+            if (" ".equals(map.get(new Pair<>(i, elem.y())))) {
                 return false;
             }
         }
         return true;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Boolean toQuit(Pair<Integer, Integer> elem) {
-        if (this.map.get(elem).equals(" ")) {
+    public Boolean toQuit(final Pair<Integer, Integer> elem) {
+        if (" ".equals(map.get(elem))) {
             return false;
         } else {
             return checkCol(elem) || checkRow(elem);
