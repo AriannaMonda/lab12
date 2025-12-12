@@ -2,7 +2,9 @@ package it.unibo.es3;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -17,6 +19,7 @@ public class LogicsImpl implements Logics, Serializable {
     private static final long serialVersionUID = 1L;
     private final int size;
     private final Map<Pair<Integer, Integer>, String> map = new LinkedHashMap<>();
+    //private List<Pair<Integer, Integer>> list = new ArrayList<>();
 
     /**
      * Constructor.
@@ -66,18 +69,29 @@ public class LogicsImpl implements Logics, Serializable {
     }
 
     @Override
-    public Pair<Integer, Integer> fill() {
+    public List<Pair<Integer, Integer>> fill() {
+        List<Pair<Integer, Integer>> list = new ArrayList<>();
         //riempire i bottoni che sono attorno a quelli gia segnati da "*"
-        for (Pair<Integer, Integer> pair : this.map.keySet()){
+        for (final Pair<Integer, Integer> pair : this.map.keySet()){
             if("*".equals(map.get(pair))){
                 for (int i = pair.x()-1; i <= pair.x()+1; i++){
-                    for (int j = pair.y()-1; i <= pair.y()+1; i++){
-                        return new Pair<>(i, j);
+                    for (int j = pair.y()-1; j <= pair.y()+1; j++){
+                        Pair<Integer, Integer> newpair = new Pair<>(i, j);
+                        //voglio controllare che newpair sia dentro i limiti della mappa
+                        if (map.containsKey(newpair) && !"*".equals(map.get(newpair))){
+                            //map.put(newpair, "*"); È SBAGLIATO QUI, se faccio così riempio quasi tutta la griglia in un colpo solo
+                            list.add(newpair);
+                        }
                     }
                 }
             }
         }
-        return null;
+        for (Pair<Integer, Integer> p : list) {
+            map.put(p, "*");
+        }
+        //ritorniamo una list di pair e nella gui per ogni pair nel set chiamiamo hit per aggiungere *
+        //voglio ritornare tutte le celle che sono state riempite
+        return List.copyOf(list);
     }
 
     /**

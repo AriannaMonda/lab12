@@ -1,5 +1,7 @@
 package it.unibo.es3;
 
+import java.util.List;
+
 /**
  * Interface defining the logic for a slot-based application.
  */
@@ -27,5 +29,5 @@ public interface Logics {
     */
     String hit(Pair<Integer, Integer> pair);
 
-    Pair<Integer, Integer> fill();
+    List<Pair<Integer, Integer>> fill();
 }

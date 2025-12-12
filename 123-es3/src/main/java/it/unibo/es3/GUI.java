@@ -50,18 +50,21 @@ public final class GUI extends JFrame {
         for(int i = 0; i < 3; i++) {
             buttonPosition = logics.random();
             //i button vanno aggiornati
-            int index = buttonPosition.y() *10 + buttonPosition.x(); //calcolo l'indice del button
+            int index = buttonPosition.y() *width + buttonPosition.x(); //calcolo l'indice del button
             this.cells.get(index).setText(logics.hit(buttonPosition));
         }
 
         hitButton.addActionListener(e -> {
             if (logics.toQuit()) {
                 dispose();
-            }
-            else {
-                logics.fill();
-                int index = buttonPosition.y() *10 + buttonPosition.x(); //calcolo l'indice del button
-                this.cells.get(index).setText(logics.hit(buttonPosition));
+            } else {
+                //bisogna aggiornare la griglia
+                List<Pair<Integer, Integer>> newList = new ArrayList<>();
+                newList = logics.fill();
+                for (Pair<Integer, Integer> pair : newList){
+                    int index = pair.y() *width + pair.x(); 
+                    this.cells.get(index).setText(this.logics.hit(pair));
+                }
             }
         });
         pack();
