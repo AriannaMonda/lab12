@@ -18,13 +18,13 @@ public final class GUI extends JFrame {
     @Serial
     private static final long serialVersionUID = 1L;
     private final List<JButton> cells = new ArrayList<>();
-    private Pair<Integer, Integer> buttonPosition;
-    private final Logics logics;
+    private final transient Logics logics;
     /**
      * Constructor.
      *
      * @param width the size of the grid
      */
+
     public GUI(final int width) {
         this.logics = new LogicsImpl(width);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -41,16 +41,16 @@ public final class GUI extends JFrame {
         // Create buttons and add them to the panel
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < width; j++) {
-                final var pos = new Pair<>(j, i);
                 final JButton button = new JButton(" ");
                 this.cells.add(button);
                 panelGrid.add(button);
             }
         }
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
+            final Pair<Integer, Integer> buttonPosition;
             buttonPosition = logics.random();
             //i button vanno aggiornati
-            int index = buttonPosition.y() *width + buttonPosition.x(); //calcolo l'indice del button
+            final int index = buttonPosition.y() * width + buttonPosition.x(); //calcolo l'indice del button
             this.cells.get(index).setText(logics.hit(buttonPosition));
         }
 
@@ -59,10 +59,9 @@ public final class GUI extends JFrame {
                 dispose();
             } else {
                 //bisogna aggiornare la griglia
-                List<Pair<Integer, Integer>> newList = new ArrayList<>();
-                newList = logics.fill();
-                for (Pair<Integer, Integer> pair : newList){
-                    int index = pair.y() *width + pair.x(); 
+                final List<Pair<Integer, Integer>> newList = logics.fill();
+                for (final Pair<Integer, Integer> pair : newList) {
+                    final int index = pair.y() * width + pair.x(); 
                     this.cells.get(index).setText(this.logics.hit(pair));
                 }
             }
