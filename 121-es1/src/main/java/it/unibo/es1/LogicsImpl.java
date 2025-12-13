@@ -72,11 +72,12 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public boolean toQuit() {
-        for (final Integer i : this.values()) {
-            if (i <= size) {
+        final int first = this.list.get(0);
+        for (final int value : this.list) {
+            if (value != first) {
                 return false;
             }
         }
-        return true; 
+        return true;
     }
 }
